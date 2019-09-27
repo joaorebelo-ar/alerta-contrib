@@ -5,7 +5,7 @@ from alerta.plugins import PluginBase
 
 LOG = logging.getLogger('alerta.plugins.enhance')
 
-RUNBOOK_URL = 'http://www.example.com/wiki/RunBook'   # example only
+
 
 
 class EnhanceAlert(PluginBase):
@@ -13,6 +13,8 @@ class EnhanceAlert(PluginBase):
     def pre_receive(self, alert):
 
         LOG.info("Enhancing alert...")
+
+        RUNBOOK_URL = self.get_config('RUNBOOK_URL', default='http://www.example.com/wiki/RunBook', type=str, **kwargs)
 
         # Set "isOutOfHours" flag for later use by notification plugins
         dayOfWeek = alert.create_time.strftime('%a')
